@@ -6,4 +6,4 @@ Test repository for learning git for APPM4600. This repository contains copies o
 - `Labs`
 	- `Lab 1`
 
-In the future, this directory could contain homework for the course or future labs
+In the future, this directory could contain homework for the course or future labs. At the moment, it is largely empty.
