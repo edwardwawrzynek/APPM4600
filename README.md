@@ -5,3 +5,5 @@ Test repository for learning git for APPM4600. This repository contains copies o
 - `Homework`
 - `Labs`
 	- `Lab 1`
+
+In the future, this directory could contain homework for the course or future labs
