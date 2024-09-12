@@ -1,0 +1,12 @@
+1(a) Bisection successfully finds the root x=1 (Root:  1.0000000000002274 , Error:  0)
+1(b) There is no root of odd multiplicity in the interval, bisection cannot find root (Root: -1, Error: 1)
+1(c) Bisection successfully finds the root x=1 (Root:  1.0000000000002274 , Error:  0)
+
+Bisection cannot find the root x=0. This is because the root is of even multiplicity and doesn't cause f(x) to undergo the sign change that bisection relies on.
+
+2(a) The root x=1 is found successfully, as expected (Root:  1.0000030517578122 , Error:  0)
+2(b) Bisection cannot find any roots, as expected--there are none of odd multiplicity within the interval (Root:  0 , Error:  1)
+2(c) [0, 0.1] Bisection finds the root x=0, as expected (Root:  0 , Error:  0)
+2(c) [0.5, 3*pi/4] Bisection cannot find any roots, as expected--there are none in the interval (Root: 0.5, Error: 1)
+
+3(a)
