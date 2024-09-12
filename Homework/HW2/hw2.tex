@@ -15,6 +15,7 @@
 \date{14 September 2024}
 
 \newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+\renewcommand\vec{\mathbf}
 
 \makeatletter
 \def\@maketitle{%
@@ -103,16 +104,18 @@
             0 & 1 \\ 1 & 10^{-10}
           \end{bmatrix},
       \end{align*} so we have \(\sigma_1 = 5\times 10^9\) and \(\sigma_2 = \frac{1}{2}\) and the condition number is bound as \begin{align*}
-          \kappa (A) \leq \frac{\sigma_1}{\sigma_2} = \frac{5\times_10^9}{\frac{1}{2}} = 10^10,
+          \kappa (A) \leq \frac{\sigma_1}{\sigma_2} = \frac{5\times_10^9}{\frac{1}{2}} = 10^{10},
       \end{align*} which suggests that the problem may be poorly conditioned.
 
-      \item The relative error in the solution is \(||\vec{\Delta x}|| / ||\vec{x}||\). The condition number provides an upper bound for the relative error in the solution relative to the perturbation.
+      \item The relative error in the solution is \(||\vec{\Delta x}|| / ||\vec{x}||\). The condition number provides an upper bound for the relative error in the solution relative to the relative perturbation, that is, \begin{align*}
+          \kappa = \lim _{\delta \to 0} \sup_{||\vec{\Delta b}||<\delta}  \frac{\frac{||\vec{\Delta x}||}{||\vec{x}||}}{\frac{||\vec{\Delta b}||}{\vec{b}}}.
+      \end{align*}
       
       From the absolute error \eqref{eq:2pert}, we known that the error is dominated by the \(\Delta b_1 - \Delta b_2\) term. The error will be larger if the perturbations in each dimension are not matched. The relative error for various perturbations is given below.
 
       \begin{center}
         \begin{tabular}{c|c}
-          Perturbation & Error \\
+          Perturbation & Relative Error \\
           \hline
           \(\Delta b_1 = 10^{-5}, \Delta b_2 = 10^{-5}\) & \(1.002\times 10^{-5}\) 
           \\ \hline
@@ -120,18 +123,57 @@
         \end{tabular}
       \end{center}
 
-      In general, we cannot expect the perturbation terms to be equal, and we observe a very poorly conditioned system.
+      Notice that the case with unmatched perturbations has large error. In general, we cannot expect the perturbation terms to be equal, so we should expect the system to be very poorly conditioned.
     \end{enumerate}
 
     \item \begin{enumerate}
-      \item  
+      \item The problem is \(f(x) = e^x - 1\). We consider a perturbation \(\delta x\) and examine the perturbed solution \(\delta f\). It has relative condition number \begin{align*}
+        \kappa = \lim_{\delta \to 0} \frac{\frac{||\delta f||}{||f||}}{\frac{||\delta x||}{||x||}} = \lim_{\delta \to 0} \frac{||\delta f||}{||\delta x||} \frac{||x||}{||f||} = e^x \left( \frac{x}{e^x-1} \right) = \frac{xe^x}{e^x-1}.
+      \end{align*} Thus, this problem is ill conditioned for large values of \(x\), where \(\kappa \) will grow large.
+
+      \item This algorithm is not stable for small values of \(x\), where cancellation will occur between the \(e^x\) and \(1\) terms and result in a loss of precision.
+      
+      \item Computation with the algorithm above gives \(1.000000082740371 \times 10^{-9}\), which is correct only for 8 digits. This is expected, since the algorithm involves a large cancellation.
+      
+      \item We Taylor expand \(e^x\) and find \begin{align*}
+          f(x) \approx x + \frac{x^2}{2!} + \frac{x^3}{3!} + \dots.
+      \end{align*} To compute f(x) accurately to 16 digits, we only need the first two terms, \begin{align*}
+          f(x) = x + \frac{x^2}{2}.
+      \end{align*}
+
+      \item Observe that \begin{align*}
+          f(9.999999995000000\times 10^{-10}) \approx 1.00000000000000006228159146 \times 10^{-09},
+      \end{align*} which is accurate to 16 digits.
+
     \end{enumerate}
 
-    \section*{A. Codes}
-    The code used to compute the results in the table in 2(c) is listed below.
-    {\small \lstinputlisting[language=Python]{hw2_2c.py}}
+    \item \begin{enumerate}
+      \item The code for this question is listed in the appendix. For \(t\) over 0 to $\pi$ inclusive with steps \(\frac{\pi}{30}\), we get \begin{align*}
+          S \approx -20.686852364346837
+      \end{align*}
+
+      \item The plot of the curve for \(R=1.2, \delta r=0.1, f=15, p=0\) is shown below.
+      
+      \begin{center}
+        \includegraphics[width=0.65\textwidth]{hw2_3_b1.png}
+      \end{center}
+
+      The plot of the curve with variable parameters is shown below.
+      \begin{center}
+        \includegraphics[width=0.65\textwidth]{hw2_3_b2.png}
+      \end{center}
+
+    \end{enumerate}
 
 \end{enumerate}
+\section*{A. Codes}
+\textbf{Question 2.} The code used to compute the results in the table in 2(c) is listed below.
+{\small \lstinputlisting[language=Python]{hw2_2c.py}}
 
+\noindent\textbf{Question 3.} The code used to compute the results in problem (3) is listed below.
+{\small \lstinputlisting[language=Python]{hw2_3.py}}
+
+\noindent\textbf{Question 4.} The code used to compute the results in problem (4) is listed below.
+{\small \lstinputlisting[language=Python]{hw2_4.py}}
 
 \end{document}

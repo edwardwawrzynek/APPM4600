@@ -9,4 +9,13 @@ Bisection cannot find the root x=0. This is because the root is of even multipli
 2(c) [0, 0.1] Bisection finds the root x=0, as expected (Root:  0 , Error:  0)
 2(c) [0.5, 3*pi/4] Bisection cannot find any roots, as expected--there are none in the interval (Root: 0.5, Error: 1)
 
-3(a)
+(3) All four functions have fixed point x=7^(1/5), verified by code
+x=7^1/5 is fixed point, x= 1.4757731615945522 , xstar= 1.4757731615945469 , ier= 0
+x=7^1/5 is fixed point, x= 1.4757731615945522 , xstar= 1.4757731615945509 , ier= 0
+x=7^1/5 is fixed point, x= 1.4757731615945522 , xstar= 1.475773161594552 , ier= 0
+x=7^1/5 is fixed point, x= 1.4757731615945522 , xstar= 1.475773161594552 , ier= 0
+
+3(a) Fixed point iteration overflows
+3(b) Fixed point iteration overflows
+3(c) Fixed point iteration finds the fixed point x=7^(1/5) (x0= 1 , xstar= 1.475773161594552 , ier= 0)
+3(d) Fixed point iteration doesn't converge (x0=1 , xstar= 1.473578045466708 , ier= 1)

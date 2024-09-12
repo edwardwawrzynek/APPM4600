@@ -1,11 +1,7 @@
-Edward
-Wawrzynek
-# APPM4600 Lab 2
+APPM 4600: Introduction to Numerical Methods and Scientific Computing
 
-Test repository for learning git for APPM4600. This repository contains copies of the code that was written in lab 1, as well as empty directories for homework and other lab excersizes. In particular, the directory structure looks like the following:
+University of Colorado Boulder, Fall 2024
 
-- `Homework`
-- `Labs`
-	- `Lab 1` (contains results from Lab 1)
+Prof. Adrianna Gillman
 
-In the future, this directory could contain homework for the course or future labs. At the moment, it is largely empty.
+Edward Wawrzynek

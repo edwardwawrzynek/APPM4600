@@ -1,5 +1,6 @@
 # import libraries
 import numpy as np
+import matplotlib.pyplot as plt
 
 def question3():
      funcs = [
@@ -22,10 +23,25 @@ def question3():
      for f in funcs:
           x = 1
           try:
-               [xstar, ier] = fixedpt(f, x, tol, 100)
+               [xstar, ier] = fixedpt(f, x, tol, 10000)
                print("x=", x, ", xstar=", xstar, ", ier=", ier)
           except:
                print("overflow error, ")
+     # plot all functions and their derivatives over [0, 2]
+     i = 0
+     for f in funcs:
+          x = np.arange(0.5, 2, 0.01)
+          y = f(x)
+          dy = np.diff(y) / 0.01
+
+          plt.plot(x[:-1], dy, label=["(a)", "(b)", "(c)", "(d)"][i])
+          plt.legend()
+          plt.xlabel("x")
+          plt.ylabel("f(x)")
+          plt.savefig("prob3_" + str(i) + ".png")
+          plt.close()
+          i += 1
+
 
 # define routines
 def fixedpt(f,x0,tol,Nmax):
