@@ -1,0 +1,99 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[includehead, headheight=10mm, margin=15mm ]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{listings}
+
+
+\title{APPM 4600 Lab 4}
+\author{Edward Wawrzynek}
+\date{19 September 2024}
+
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    {\normalfont \@date}
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+
+\begin{document}
+
+\pagestyle{fancy}
+    \fancyhf{} % clear all header and footer fields
+    \fancyhead[L]{\thetitle}
+    \fancyhead[R]{\theauthor}
+
+\makeatletter
+\begin{center}
+    {\Large \@title}
+    \vskip 1mm
+    {\normalfont \@date}
+    \vskip 1em
+\end{center}
+\makeatother
+
+\section{Prelab}
+\begin{enumerate}
+\item Code for order determination is on github and listed at the end of this document in the function \texttt{order\_compare}.
+\item \begin{enumerate}
+  \item It takes 12 iterations for fixed point to converge onto the fixed point.
+  
+  \item We find that \begin{align*}
+      \alpha &\approx 0.99621, \\
+      \lambda  &\approx 0.12365.
+  \end{align*} This makes sense, as we expect the method to have first order convergence.
+\end{enumerate}
+\end{enumerate}
+
+\section{Aitken's $\Delta^2$ method}
+\begin{enumerate}
+  \item We have that \begin{align*}
+      \frac{p_{n+1} - p}{p_n - p} = \frac{p_{n+2} - p}{p_{n+1} - p},
+  \end{align*} which we can solve as \begin{align*}
+      0 &= (p_{n+1}-p)^2 - (p_{n+2} - p)(p_n-p) \\
+      &= p_{n+1}^2 - 2pp_{n+1} + p^2 - p_{n+2}p_n + pp_{n+2} + pp_n - p^2 \\
+      &= p_{n+1}^2 - p_{n+2}p_n + p(-2p_{n+1} + p_{n+2} + p_n),
+  \end{align*} thus, \begin{align*}
+    p &= \frac{p_{n+1}^2 - p_{n+2}p_n}{p_{n+2} - 2p_{n+1}+p_n} \\
+    &= p_n - \frac{(p_{n+1}-p_n)^2}{p_{n+2} - 2p_{n+1}+p_n},
+  \end{align*} as expected.
+
+  \item When we apply Aitken's method to the sequence that we found previously, we converge in 5 iterations and find that \begin{align*}
+    \alpha &\approx 1.303 \\
+    \lambda &\approx 0.835,
+  \end{align*} which is super linear convergence (\(\alpha > 1\)), faster than fixed point iteration.
+\end{enumerate}
+
+\section{Steffenson's method}
+\begin{enumerate}
+\item The implementation of steffenson's method is in the code below and on github.
+
+\item Steffensons's method yields the root \begin{align*}
+    r \approx 1.36523001341409,
+\end{align*} as expected.
+
+\item Steffenson's method converges with \begin{align*}
+    \alpha &\approx 1.996,
+    \lambda &\approx 0.001922
+\end{align*} after 3 iterations. Notice that this appears to be quadratic convergence, which is faster than un modified fixed point's linear convergence.
+\end{enumerate}
+
+{\small \lstinputlisting[language=Python]{lab4.py}}   
+
+\end{document}
