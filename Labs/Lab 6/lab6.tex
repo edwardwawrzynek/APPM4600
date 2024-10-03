@@ -1,0 +1,128 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[includehead, headheight=10mm, margin=15mm ]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{listings}
+
+
+\title{APPM 4600 Lab 6}
+\author{Edward Wawrzynek}
+\date{3 October 2024}
+
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    {\normalfont \@date}
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+
+\begin{document}
+
+\pagestyle{fancy}
+    \fancyhf{} % clear all header and footer fields
+    \fancyhead[L]{\thetitle}
+    \fancyhead[R]{\theauthor}
+
+\makeatletter
+\begin{center}
+    {\Large \@title}
+    \vskip 1mm
+    {\normalfont \@date}
+    \vskip 1em
+\end{center}
+\makeatother
+
+The code for this lab can be seen on github \href{https://github.com/edwardwawrzynek/APPM4600/blob/master/Labs/Lab\%206/lab6.py}{here} and is included below.
+
+\section{Prelab: Finite Differences}
+\begin{enumerate}
+  \item The implementation of the forward and central difference is given in the code below. The approximate derivatives for \(f(x) = \cos  x\) at \(x = \pi /2\) are listed below in Table \ref{tab:fd} and \ref{tab:cd} below.
+  
+  \begin{table}[h!]
+    \centering
+    \begin{tabular}{c c} 
+     \(h\) & Forward Difference at \(x = \frac{\pi}{2}\) \\
+     \hline
+     0.01 & -0.9999833334166673 \\
+0.005 & -0.9999958333385205 \\
+0.0025 & -0.9999989583336375 \\
+0.00125 & -0.9999997395833322 \\
+0.000625 & -0.999999934895991 \\
+0.0003125 & -0.9999999837237595 \\
+0.00015625 & -0.9999999959315011 \\
+7.8125e-05 & -0.9999999989818379 \\
+3.90625e-05 & -0.9999999997447773 \\
+1.953125e-05 & -0.9999999999355124 \\
+    \end{tabular}
+    \caption{Forward differences of \(f(x = \frac{\pi}{2})\).}
+    \label{tab:fd}
+    \end{table}
+
+    \begin{table}[h!]
+      \centering
+      \begin{tabular}{c c} 
+       \(h\) & Central Difference at \(x = \frac{\pi}{2}\) \\
+       \hline
+       0.01 & -0.9999833334166673 \\
+       0.005 & -0.9999958333385205 \\
+       0.0025 & -0.9999989583336376 \\
+       0.00125 & -0.9999997395833324 \\
+       0.000625 & -0.9999999348959908 \\
+       0.0003125 & -0.9999999837237594 \\
+       0.00015625 & -0.9999999959315011 \\
+       7.8125e-05 & -0.9999999989818379 \\
+       3.90625e-05 & -0.9999999997447773 \\
+       1.953125e-05 & -0.9999999999355121 \\
+      \end{tabular}
+      \caption{Central differences of \(f(x = \frac{\pi}{2})\).}
+      \label{tab:cd}
+      \end{table}
+  
+      \item Both methods have numerical order \(\alpha  \approx 1\), as expected.
+  
+\end{enumerate}
+
+\section{Slacker Newton}
+We choose to update the Jacobian whenever the current point is sufficiently far from the last point at which we computed the Jacobian, that is, where \begin{align*}
+  ||x_0 - x_n|| > t,
+\end{align*} where \(t\) is some tolerance. The implementation is provided in the code at the end of the document.
+
+We choose \(t = 10^{-5}\) and find the approximate root \begin{align*}
+    x \approx 0.99860694, \; y \approx -0.10553049.
+\end{align*} This is the same as is found by lazy newton, except that slacker newton takes 3 iterations to reach \(10^{-10}\) tolerance whereas lazy newton takes 7 iterations.
+
+\section{Approximate Jacobian}
+We approximate the Jacobian with forward differences, that is, \begin{align*}
+    J(x,y) \approx \begin{bmatrix}
+      \frac{f(x+h,y)-f(x,y)}{h} & \frac{f(x, y+h)-f(x, y)}{h} \\
+      \frac{g(x+h,y)-g(x,y)}{h} & \frac{g(x, y+h)-g(x, y)}{h}.
+    \end{bmatrix}
+\end{align*}
+
+The implementation is provided in the code at the end of the document.
+
+We pick \(h = 10^{-8}\) and find the approximate root \begin{align*}
+  x \approx 0.99860694, \; y \approx -0.10553049,
+\end{align*} which is found in 3 iterations.
+
+{\small \lstinputlisting[language=Python]{lab6.py}}   
+
+\end{document}
