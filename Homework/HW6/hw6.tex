@@ -10,11 +10,12 @@
 \usepackage{fancyhdr}
 \usepackage{listings}
 
-\title{APPM 4600 Homework TODO}
+\title{APPM 4600 Homework 6}
 \author{Edward Wawrzynek}
-\date{TODO}
+\date{11 October 2024}
 
 \newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+\renewcommand{\vec}{\mathbf}
 
 \makeatletter
 \def\@maketitle{%
@@ -48,8 +49,87 @@
 \makeatother
 
 \begin{enumerate}
-    \item 
+    \item The code used in this question is listed at the end of the question.
+    
+    We have the system \begin{align*}
+        f(x, y) &= x^2 + y^2 -4 \\
+        g(x, y) &= e^x + y -1,
+    \end{align*} with Jacobian \begin{align*}
+        J(x, y) = \begin{bmatrix}
+          2x & 2y \\
+          e^x & 1 \\
+        \end{bmatrix}.
+    \end{align*}
 
+    \begin{enumerate}
+      \item We apply Newton's method to the system with various initial guesses and get convergence to within \(10^{-10}\) in the following number of iterations:
+      \begin{enumerate}
+        \item \((x_0, y_0) = (1, 1)\): Root \((x, y) \approx (-1.81626407, 0.8373678)\), 7 iterations, 0.00025 \(s\).
+        \item \((x_0, y_0) = (1, -1)\): Root \((x, y) \approx (1.00416874 -1.72963729)\), 5 iterations, 0.00019 \(s\).
+        \item \((x_0, y_0) = (0, 0)\): Jacobian is singular at the origin, so we cannot apply Newton's method. 
+      \end{enumerate}
+
+      \item We apply Lazy Newton's method to the system with various initial guesses and get the following results:
+      \begin{enumerate}
+        \item \((x_0, y_0) = (1, 1)\): Does not converge to the root (walks off to infinity).
+        \item \((x_0, y_0) = (1, -1)\):  Root \((x, y) \approx (1.00416874 -1.72963729)\), 36 iterations, 0.000050 \(s\).
+        \item \((x_0, y_0) = (0, 0)\): Jacobian is singular at the origin, so we have no initial \(J_0\).
+      \end{enumerate}
+
+      \item We apply Broyden to the system with various initial guesses and get convergence to within \(10^{-10}\) in the following number of iterations:
+      \begin{enumerate}
+        \item \((x_0, y_0) = (1, 1)\): Root \((x, y) \approx (-1.81626407, 0.8373678)\), 12 iterations, 0.00018 \(s\).
+        \item \((x_0, y_0) = (1, -1)\):  Root \((x, y) \approx (1.00416874 -1.72963729)\), 6 iterations, 0.00024 \(s\).
+        \item \((x_0, y_0) = (0, 0)\): Jacobian is singular at the origin, so we have no initial \(B_0\).
+      \end{enumerate}
+    \end{enumerate}
+
+    In general, we observe that the Quasi-Newton methods take more iterations to converge but converge in the same or shorter time as compared to Newton's method. This makes sense --- Newton's method has better convergence order than the quasi-Newton methods but has a relatively expensive iterative step (it requires a matrix inversion). 
+    
+    Since our system has only 2 dimensions, matrix inversion is still relatively cheap. This effect may be seen better in higher dimensional systems.
+
+    {\small \lstinputlisting[language=Python]{hw6_1.py}}
+
+    \newpage
+
+    \item The code used for this question is listed at the end of the question.
+    
+    We have the system \begin{align*}
+        0 = f(x, y, z) &= x + \cos(xyz)-1 \\
+        0 = g(x, y, z) &= (1-x)^{\frac{1}{4}} + y + 0.05z^2 - 0.15z -1 \\
+        0 = h(x,y,z) &= -x^2 - 0.1y^2 + 0.01y + z - 1.
+    \end{align*}
+
+    The system has Jacobian \begin{align*}
+        J(x, y, z) = \begin{bmatrix}
+          1 - yz\sin(xyz) & -xz\sin(xyz) & -xy\sin(syz) \\
+          -\frac{1}{4}(1-x)^{-\frac{3}{4}} & 1 & 0.1z - 0.15 \\
+          -2x & -0.2y + 0.01 & 1
+        \end{bmatrix}.
+    \end{align*}
+
+    \begin{enumerate}
+      \item Applying Newton's method and an initial guess of \((x_0, y_0, z_0) = (0, 0, 0)\) yields the root \((x, y, z) = (0, 0.1, 1)\) in 3 iterations, taking 0.00022s.
+      \item To apply steepest descent, we want to minimize the function \begin{align*}
+          \phi(x, y, z) &= f(x, y, z)^2 + g(x, y, z)^2 + h(x, y, z)^2. \\
+      \end{align*} All roots of our system are also minimums of \(\phi\). 
+
+      We have that the gradient of \(\phi\) is \begin{align*}
+          \nabla \phi(x, y, z) = 2J^T(x, y, z)\cdot \begin{bmatrix}
+            f(x, y, z) \\ g(x, y, z) \\ h(x, y, z)
+          \end{bmatrix},
+      \end{align*} so our iterative step is \begin{align*}
+          \vec{x_{k+1}} = \vec{x_k} - \lambda_k J^T(\vec{x_k}) \cdot   \vec{F(\vec{x_k})},
+      \end{align*} where we pick \(\lambda_k\) via line search.
+
+      Applying steepest descent with an initial guess of \((x_0, y_0, z_0) = (0, 0, 0)\) yields the approximate root \((x,y,z) \approx (-0.0000628, 0.099968563, 0.0.9999844)\) in 5 iterations, taking 0.00093s.
+
+      \item We apply steepest descent to within \(5e-2\) and use the resulting value as a starting point for Newton. This yields an approximate root \((x, y, z) \approx (5.44\times_10^{-17}, 0.1, 1)\) in 1 iteration of steepest descent and 2 iterations of Newton, taking 0.0021s.
+      
+      This hybrid method is attractive because steepest descent can converge in areas outside of Newton's basin of convergence, but it still allows for the quadratic convergence of Newton nearby the root (as compared to steepest descent's linear convergence).
+    \end{enumerate}
+
+    {\small \lstinputlisting[language=Python]{hw6_2.py}}
 \end{enumerate}
 
 

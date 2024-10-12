@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.31)  10 OCT 2024 12:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.31)  10 OCT 2024 12:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -422,37 +422,47 @@ Package pdftex.def Info: lab7_interp_error_N10.png  used on input line 79.
  [1{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
  <./lab7_interp_N2.png> <./lab7_interp_error_N2.png>]
-<lab7_uneven_interp_N19.png, id=38, 462.528pt x 346.896pt>
+<lab7_interp_N19.png, id=38, 462.528pt x 346.896pt>
+File: lab7_interp_N19.png Graphic file (type png)
+<use lab7_interp_N19.png>
+Package pdftex.def Info: lab7_interp_N19.png  used on input line 85.
+(pdftex.def)             Requested size: 238.01991pt x 178.51845pt.
+<lab7_interp_error_N19.png, id=39, 462.528pt x 346.896pt>
+File: lab7_interp_error_N19.png Graphic file (type png)
+<use lab7_interp_error_N19.png>
+Package pdftex.def Info: lab7_interp_error_N19.png  used on input line 86.
+(pdftex.def)             Requested size: 238.01991pt x 178.51845pt.
+<lab7_uneven_interp_N19.png, id=40, 462.528pt x 346.896pt>
 File: lab7_uneven_interp_N19.png Graphic file (type png)
 <use lab7_uneven_interp_N19.png>
-Package pdftex.def Info: lab7_uneven_interp_N19.png  used on input line 88.
+Package pdftex.def Info: lab7_uneven_interp_N19.png  used on input line 93.
 (pdftex.def)             Requested size: 238.01991pt x 178.51845pt.
-<lab7_uneven_interp_error_N19.png, id=39, 462.528pt x 346.896pt>
+<lab7_uneven_interp_error_N19.png, id=41, 462.528pt x 346.896pt>
 File: lab7_uneven_interp_error_N19.png Graphic file (type png)
 <use lab7_uneven_interp_error_N19.png>
-Package pdftex.def Info: lab7_uneven_interp_error_N19.png  used on input line 89.
+Package pdftex.def Info: lab7_uneven_interp_error_N19.png  used on input line 94.
 (pdftex.def)             Requested size: 238.01991pt x 178.51845pt.
- (/usr/local/texlive/2022/texmf-dist/tex/latex/listings/lstlang1.sty
+ [2 <./lab7_interp_N10.png> <./lab7_interp_error_N10.png> <./lab7_interp_N19.png> <./lab7_interp_error_N19.png>] (/usr/local/texlive/2022/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 92.
- (./lab7.py [2 <./lab7_interp_N10.png> <./lab7_interp_error_N10.png> <./lab7_uneven_interp_N19.png> <./lab7_uneven_interp_error_N19.png>] [3] [4]) [5] (./lab7.aux)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 97.
+ (./lab7.py [3 <./lab7_uneven_interp_N19.png> <./lab7_uneven_interp_error_N19.png>] [4]) [5] (./lab7.aux)
 Package rerunfilecheck Info: File `lab7.out' has not changed.
 (rerunfilecheck)             Checksum: 56259AEF992878124FA45E5837B973E4;476.
  ) 
 Here is how much of TeX's memory you used:
- 12287 strings out of 476093
- 187730 string characters out of 5791584
- 1923793 words of memory out of 5000000
- 32353 multiletter control sequences out of 15000+600000
+ 12301 strings out of 476093
+ 188100 string characters out of 5791584
+ 1919793 words of memory out of 5000000
+ 32365 multiletter control sequences out of 15000+600000
  516602 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,14n,77p,360b,2174s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb>
-Output written on lab7.pdf (5 pages, 354879 bytes).
+Output written on lab7.pdf (5 pages, 417437 bytes).
 PDF statistics:
- 312 PDF objects out of 1000 (max. 8388607)
+ 316 PDF objects out of 1000 (max. 8388607)
  260 compressed objects within 3 object streams
  156 named destinations out of 1000 (max. 500000)
- 55 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 65 words of extra memory for PDF output out of 10000 (max. 10000000)
 

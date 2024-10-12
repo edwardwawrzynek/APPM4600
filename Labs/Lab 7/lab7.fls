@@ -644,6 +644,16 @@ INPUT lab7_interp_error_N10.png
 INPUT ./lab7_interp_error_N10.png
 INPUT ./lab7_interp_error_N10.png
 INPUT /usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT ./lab7_interp_N19.png
+INPUT ./lab7_interp_N19.png
+INPUT lab7_interp_N19.png
+INPUT ./lab7_interp_N19.png
+INPUT ./lab7_interp_N19.png
+INPUT ./lab7_interp_error_N19.png
+INPUT ./lab7_interp_error_N19.png
+INPUT lab7_interp_error_N19.png
+INPUT ./lab7_interp_error_N19.png
+INPUT ./lab7_interp_error_N19.png
 INPUT /usr/local/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT ./lab7_uneven_interp_N19.png
 INPUT ./lab7_uneven_interp_N19.png
