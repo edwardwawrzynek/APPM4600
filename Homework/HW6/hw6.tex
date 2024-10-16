@@ -73,7 +73,7 @@
       \begin{enumerate}
         \item \((x_0, y_0) = (1, 1)\): Does not converge to the root (walks off to infinity).
         \item \((x_0, y_0) = (1, -1)\):  Root \((x, y) \approx (1.00416874 -1.72963729)\), 36 iterations, 0.000050 \(s\).
-        \item \((x_0, y_0) = (0, 0)\): Jacobian is singular at the origin, so we have no initial \(J_0\).
+        \item \((x_0, y_0) = (0, 0)\): Jacobian is singular at the origin, so we have no initial \(J_0^{-1}\).
       \end{enumerate}
 
       \item We apply Broyden to the system with various initial guesses and get convergence to within \(10^{-10}\) in the following number of iterations:
