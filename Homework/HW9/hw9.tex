@@ -1,0 +1,233 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[includehead, headheight=10mm, margin=15mm ]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{listings}
+
+\title{APPM 4600 Homework 9}
+\author{Edward Wawrzynek}
+\date{3 November 2024}
+
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+\renewcommand{\vec}{\mathbf}
+
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    {\normalfont \@date}
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+
+\begin{document}
+
+\pagestyle{fancy}
+    \fancyhf{} % clear all header and footer fields
+    \fancyhead[L]{\thetitle}
+    \fancyhead[R]{\theauthor}
+
+\makeatletter
+\begin{center}
+    {\Large \@title}
+    \vskip 1mm
+    {\normalfont \@date}
+    \vskip 1em
+\end{center}
+\makeatother
+
+\begin{enumerate}
+    \item We have the system \begin{align*}
+        A \vec{x} = \vec{b},
+    \end{align*} where \begin{align*}
+        A = \begin{bmatrix}
+          1 & 0 \\ 0 & 1 \\ 0 & 1
+        \end{bmatrix},\;\vec{b} = \begin{bmatrix}
+        1 \\ 1 \\ 0
+      \end{bmatrix},\;\mathrm{and}\;\vec{x} = \begin{bmatrix}
+        u \\ v
+      \end{bmatrix}.
+    \end{align*}
+    We wish to minimize the error \(|| A\vec{x} - b||\). We form the Gram matrx \begin{align*}
+        G = A^TA = \begin{bmatrix}1 & 0 & 0 \\ 0 & 1 & 1\end{bmatrix}\begin{bmatrix}
+          1 & 0 \\ 0 & 1 \\ 0 & 1
+        \end{bmatrix} = \begin{bmatrix}
+          1 & 0 \\ 0 & 2
+        \end{bmatrix},
+    \end{align*} with inverse \begin{align*}
+      (A^TA)^{-1} = \begin{bmatrix}
+        1 & 0 \\ 0 & \frac{1}{2}
+      \end{bmatrix}.
+    \end{align*} We then solve the system \(A^TA\vec{x} = A^T \vec{b}\), which yields \begin{align*}
+        \vec{X} = \begin{bmatrix}
+          u \\ v
+        \end{bmatrix} = (A^TA)^{-1}A^T \vec{b} = \begin{bmatrix}
+          1 & 0 \\ 0 & \frac{1}{2}
+        \end{bmatrix}\begin{bmatrix}1 & 0 & 0 \\ 0 & 1 & 1\end{bmatrix}\begin{bmatrix}
+          1 \\ 1 \\ 0
+        \end{bmatrix} = \begin{bmatrix}
+          1 & 0 \\ 0 & \frac{1}{2}
+        \end{bmatrix}\begin{bmatrix}1\\1\end{bmatrix} = \begin{bmatrix}
+          1 \\ \frac{1}{2}
+        \end{bmatrix},
+    \end{align*} that is, we have least squares solution \begin{align*}
+      \begin{bmatrix}
+        u \\ v
+      \end{bmatrix} = \begin{bmatrix}
+        1 \\ \frac{1}{2}
+      \end{bmatrix}.
+    \end{align*}
+
+    \newpage
+  \item We have the system \begin{align} \label{eq:2sys}
+      A\vec{x} - \vec{c} = \vec{b},
+  \end{align} where \begin{align*}
+      A = \begin{bmatrix}
+        1 & 3 \\ 6 & -1 \\ 4 & 0 \\ 2 & 7
+      \end{bmatrix},\;\vec{c} = \begin{bmatrix}
+        1 \\ 2 \\ 3 \\ 4
+      \end{bmatrix},\;\vec{x}=\begin{bmatrix}
+        x_1 \\ x_2
+      \end{bmatrix},\;\mathrm{and}\;\vec{b}=\begin{bmatrix}
+        b_1 \\ b_2 \\ b_3 \\ b_4
+      \end{bmatrix}.
+  \end{align*}
+  
+  We wish to minimize the quantity \begin{align*}
+      E^2 = b_1^2 + 4b_2^2 + 25b_3^2 + 9b_4^2,
+  \end{align*} from which we construct the diagonal weight matrix \begin{align*}
+      D = \begin{bmatrix}
+        1 & 0 & 0 & 0 \\
+        0 & 2 & 0 & 0 \\
+        0 & 0 & 5 & 0 \\
+        0 & 0 & 0 & 3
+      \end{bmatrix}.
+  \end{align*}
+
+  We multiple our system \eqref{eq:2sys} by this weight on the left and have \begin{align*}
+      DA\vec{x} - D\vec{c} = D\vec{b}.
+  \end{align*} The error term that we wish to minimize is now \begin{align*}
+      E^2 = ||D\vec{b}||_2,
+  \end{align*} which is the same problem as finding the least squares solution to the system \begin{align*}
+      DA\vec{x} = D\vec{c}.
+  \end{align*} As in problem (1), we have the least squares solution \begin{align*}
+      \vec{x} = (A^TD^TDA)^{-1}A^TD^TD\vec{c} &= \left(\begin{bmatrix}1 & 12 & 20 & 6\\3 & -2 & 0 & 21\end{bmatrix}\begin{bmatrix}
+        1 & 3 \\ 12 & -2 \\ 20 & 0 \\ 6 & 21
+      \end{bmatrix}\right)^{-1}\begin{bmatrix}
+      1 & 3 \\ 12 & -2 \\ 20 & 0 \\ 6 & 21
+    \end{bmatrix}\begin{bmatrix}
+      1 \\ 4 \\ 15 \\ 12 \\
+    \end{bmatrix} \\
+    &= \dots \\
+    &\approx \begin{bmatrix}
+      0.6536 \\ 0.3929
+    \end{bmatrix}.
+  \end{align*}
+
+  \newpage
+  \item \begin{enumerate}
+    \item We wish to show that \(\{1, x, x^2, \dots , x^n\}\) is linearly independent, that is, we wish to show that the system \begin{align}\label{eq:3asys}
+        c_0 + c_1x + c_2x^2 + \dots  + c_nx^n = 0
+    \end{align} has only the trivial solution \(0 = c_0 = c_1 = c_2 = \dots  = c_n\).  Since \eqref{eq:3asys} is identically zero, all of its derivatives must also be zero, that is, \begin{align*}
+        0 &= c_0 + c_1x + c_2x^2 + \dots  + c_{n-1}x^{n-1} + c_nx^n \\
+        0 &= c_1 + 2c_2x + 3c_3x^2 + \dots + (n-1)c_{n-1}x^{n-2} nc_nx^{n-1} \\
+        0 &= 2c_2 + 6c_3x + 12c_4x^2 + \dots + (n-1)(n-2)c_{n-1}x^{n-3} + n(n-1)c_nx^{n-2} \\
+        &\dots \\
+        0 &= ((n-1)!)c_{n-1} + (n!)c_nx\\
+        0 &= (n!)c_n. 
+    \end{align*} This is an upper triangular system which we can solve via back substitution. The last equation trivially gives \(c_n=0\), the next \(c_{n-1}=0\), and so on to give \(0 = c_n = c_{n-1} = \dots = c_2 = c_1 = c_0\).
+
+    Thus, \(\{1, x, x^2, \dots , x^n\}\) is linearly independent.
+
+    \item We wish to show that \(\{1, \cos  x, \cos  2x, \dots , \cos  nx, \sin  x, \sin  2x, \dots , \sin  nx\}\) is linearly independent, that is, we wish to show that the system \begin{align}\label{eq:3bsys}
+        0 = a_0 + b_1\cos  x + b_2\cos  2x + \dots + b_n\cos nx + c_1\sin x + c_2 \sin  2x + \dots  + c_n \sin  nx   
+    \end{align} has only the trivial solution \(0 = a_0 = b_1 = b_2 = \dots = b_n = c_1 = c_2 = \dots  = c_n\). Since \eqref{eq:3bsys} is identically zero, so must be all of its derivatives, \begin{align}
+      0 &= a_0 + b_1\cos  x + b_2\cos  2x + \dots + b_n\cos nx + c_1\sin x + c_2 \sin  2x + \dots  + c_n \sin  nx \nonumber\\
+      0 &= -b_1\sin  x  -2b_2\sin  2x + \dots  -nb_n\sin nx + c_1\cos x + 2c_2 \cos  2x + \dots  + nc_n \cos  nx \label{eq:d_1} \\
+      0 &= - b_1\cos  x  -4b_2\cos  2x + \dots - n^2b_n\cos nx - c_1\sin x - 4c_2 \sin  2x + \dots  - n^2c_n \sin  nx \nonumber\\
+      0 &= b_1\sin  x  + 8b_2\sin  2x + \dots  + n^3b_n\sin nx - c_1\cos x - 8c_2 \cos  2x + \dots  - n^3c_n \cos  nx \label{eq:d_2}\\
+      &\dots \nonumber
+    \end{align}
+
+    We add together \eqref{eq:d_1} and \eqref{eq:d_2} to get \begin{align*}
+        0 &= 6b_2\sin 2x + \dots + (n^3-n)b_n\sin  nx - 6c_2\cos 2x + \dots - (n^3-n)c_n \cos  nx,
+    \end{align*} which has eliminated the \(b_1\) and \(c_1\) terms. We can proceed in a similar manner on this equation until we isolate \(b_n\) and \(c_n\), that is, we have \begin{align*}
+        0 &= b_n \cos  nx + c_n \sin  nx \\
+          &= n\left(-b_n \sin  nx + c_n \cos  nx\right),
+    \end{align*} which is a system with only the solution \(b_n = c_n = 0\) (we can see this by considering both equations at \(x = 0\)). In a similar manner, back-substitution yields successively \(b_{n-1} = c_{n-1} = 0, \dots , b_1 = c_1 = 0\). Then \eqref{eq:3bsys} becomes \(a_0 = 0\). Thus, \(\{1, \cos  x, \cos  2x, \dots , \cos  nx, \sin  x, \sin  2x, \dots , \sin  nx\}\) is linearly independent.
+
+  \end{enumerate}
+
+  \newpage
+  \item We wish to show that the following formula generates orthogonal polynomials: \begin{align}\label{eq:ortho_rec}
+    \phi_k(x) = (x-b_k)\phi _{k-1}(x) - c_k \phi _{k-2}(x),
+  \end{align} where \begin{align*}
+      b_k = \frac{<x\phi _{k-1}, \phi _{k-1}>}{<\phi _{k-1}, \phi _{k-1}>},\;\mathrm{and}\;c_k = \frac{<x\phi _{k-1}, \phi _{k-2}>}{<\phi _{k-2}, \phi _{k-2}>}.
+  \end{align*}
+
+  \begin{proof} We prove this by induction. We assume that the base cases \(\phi_1\) and \(\phi _2\) are orthogonal.
+    
+  Assume, by way of induction, that polynomials \(\{\phi _1, \phi _2, \dots , \phi _{k-1}\}\) are orthogonal, that is, \(<\phi_n, \phi_m> = 0\) for \(n\neq m, n < k, m < k\). We have that \(\phi_k(x)\) is of degree \(k\), \(\phi_{k-1}(x)\) is of degree \(k-1\), and \(\phi_{k-2}(x)\) is of degree \(k-2\). Therefore, we can write \(\phi_k\) as \begin{align}\label{eq:4main}
+    \phi_k(x) = (x-b_k)\phi _{k-1}(x) - c_k \phi _{k-2}(x) - \sum_{i=0}^{k-3}a_i\phi _i(x),
+  \end{align} for some suitable choice of \(b_k, c_k, a_i\). We take the inner product of \eqref{eq:4main} with \(\phi_j\) for \(j \leq k-3\) and get \begin{align}
+    0 = <\phi _j, \phi _k> &= (x-b_k)<\phi _j, \phi _{k-1}> - c_k<\phi _j, \phi_{k-2}> - \sum_{i=0}^{k-3}a_i<\phi _j, \phi_i> \nonumber\\
+    &= <x\phi _j, \phi _{k-1}> - b_k<\phi _j, \phi _{k-1}> - c_k<\phi _j, \phi_{k-2}> - \sum_{i=0}^{k-3}a_i<\phi _j, \phi_i> \nonumber\\
+    &= <x\phi _j, \phi _{k-1}> - a_j<\phi _j, \phi_j> \nonumber \\
+    &= -a_j<\phi _j, \phi_j>, \label{eq:4res_1}
+  \end{align} where the third line is due to the fact that \(<\phi _n, \phi _m> = 0\) for \(n,m \leq k-1\) and \(n \neq m\), and the fourth line can be seen by recognizing the previous fact and that \(x\phi_j\) is of degree no more than \(k-2\). Thus, because \(<\phi _j, \phi _j> \neq 0\), we have from \eqref{eq:4res_1} that \(a_j = 0\) for \(j \leq k-3\). Therefore, \eqref{eq:4main} becomes \begin{align}\label{eq:4res_2}
+    \phi_k(x) = (x-b_k)\phi _{k-1}(x) - c_k \phi _{k-2}(x).
+  \end{align} We want the inner product of \eqref{eq:4res_2} with \(\phi_{k-2}\) and \(\phi_{k-1}\) to be zero. We consider first \(\phi_{k-1}\), \begin{align*}
+      0 = <\phi _{k-1}, \phi _k> &= (x-b_k)<\phi _{k-1}, \phi _{k-1}> - c_k<\phi _{k-1}, \phi_{k-2}> \\
+      &= <x\phi _{k-1}, \phi _{k-1}> - b_k<\phi _{k-1}, \phi _{k-1}>,
+  \end{align*} which we can satisfy with the choice \begin{align*}
+      b_k = \frac{<x\phi _{k-1}, \phi _{k-1}>}{<\phi _{k-1}, \phi _{k-1}>}.
+  \end{align*} We now turn to the inner product of \eqref{eq:4res_2} with \(\phi _{k-2}\), \begin{align*}
+      0 = <\phi _{k-2}, \phi _k> &= (x-b_k)<\phi _{k-2}, \phi _{k-1}> - c_k<\phi _{k-2}, \phi_{k-2}> \\
+      &= <x\phi _{k-2}, \phi _{k-1}> - b_k<\phi _{k-2}, \phi _{k-1}> - c_k<\phi _{k-2}, \phi_{k-2}> \\
+      &= <x\phi _{k-1}, \phi _{k-2}> - c_k<\phi _{k-2}, \phi_{k-2}>,
+  \end{align*} which is satisfied by the choice \begin{align*}
+      c_k = \frac{<x\phi _{k-1}, \phi _{k-2}>}{<\phi _{k-2}, \phi_{k-2}>}.
+  \end{align*}
+
+  Thus, the three term recursion generates orthogonal polynomials.
+
+  \end{proof}
+
+  \newpage
+  \item We have the formula \begin{align}\label{eq:5main}
+      T_n(x) = \frac{1}{2}\left( z^n + \frac{1}{z^n} \right),
+  \end{align} where \(x = \frac{1}{2}(z+\frac{1}{z})\).
+  
+  The first two polynomials given by \eqref{eq:5main} are \begin{align*}
+      T_0(x) &= \frac{1}{2}\left( z^0 + \frac{1}{z^0} \right) = \frac{1}{2}(1+1) = 1, \\
+      T_1(x) &= \frac{1}{2}\left( z+\frac{1}{z} \right) = x,
+  \end{align*} which are the first two Chebychev polynomials, as expected.
+
+  We will show that \eqref{eq:5main} satisfies the recurrence from class, \begin{align*}
+      T_n(x) = 2xT_{n-1}(x) - T_{n-2}(x).
+  \end{align*}
+  
+  We have \begin{align*}
+      2xT_{n-1}(x) - T_{n-2}(x) &= 2x\left( \frac{1}{2} \left( z^{n-1} + \frac{1}{z^{n-1}} \right) \right) - \frac{1}{2} \left( z^{n-2} + \frac{1}{z^{n-2}} \right) \\
+      &= \left( z + \frac{1}{z} \right)\left( \frac{1}{2} \left( z^{n-1} + \frac{1}{z^{n-1}} \right) \right) - \frac{1}{2} \left( z^{n-2} + \frac{1}{z^{n-2}} \right) \\
+      &= \frac{1}{2} \left( z^n + \frac{1}{z^{n-2}} + z^{n-2} + \frac{1}{z^n} - z^{n-2} - \frac{1}{z^{n-2}} \right) \\
+      &= \frac{1}{2} \left( z^n +\frac{1}{z^n} \right) \\
+      &= T_n(x).
+  \end{align*} Thus, \eqref{eq:5main} gives the Chebychev polynomials.
+
+\end{enumerate}
+
+
+\end{document}
