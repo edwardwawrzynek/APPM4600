@@ -1,0 +1,19 @@
+# Fdb version 4
+["pdflatex"] 1732008620 "/home/edward/Documents/APPM4600/project/eval.tex" "eval.pdf" "eval" 1732008620 0
+  "/home/edward/Documents/APPM4600/project/eval.tex" 1732008620 89 047c872bdd9aebc1309773d278fadbb9 ""
+  "/usr/local/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
+  "/usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls" 1667332637 20144 d5ecf0a5140c8d8d8b72cbe86e320eff ""
+  "/usr/local/texlive/2022/texmf-dist/tex/latex/base/size10.clo" 1667332637 8448 c33a4e1cb35cee9b33c2b21033b73e39 ""
+  "/usr/local/texlive/2022/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def" 1666901542 30426 f2fb69fcda4dc35ed0b7dee211bce679 ""
+  "/usr/local/texlive/2022/texmf-dist/tex/latex/preprint/fullpage.sty" 1137110595 2789 05b418f78b224ec872f5b11081138605 ""
+  "/usr/local/texlive/2022/texmf-dist/web2c/texmf.cnf" 1646502317 40171 cdab547de63d26590bebb3baff566530 ""
+  "/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1672536734 4623329 5e28269c2aee4b9e2f0ef6bdcff03654 ""
+  "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1672536797 7874841 26f8ede84d0267b8b767d0e2d0e272a4 ""
+  "/usr/local/texlive/2022/texmf.cnf" 1672536729 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
+  "eval.aux" 1732008620 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "eval.tex" 1732008620 89 047c872bdd9aebc1309773d278fadbb9 ""
+  (generated)
+  "eval.aux"
+  "eval.log"
+  "eval.pdf"
+  (rewritten before read)

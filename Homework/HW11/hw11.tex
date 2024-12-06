@@ -48,7 +48,73 @@
 \makeatother
 
 \begin{enumerate}
-    \item 
+    \item \begin{enumerate}
+      \item The code implementing composite trapezoidal rule and composite simpson's rule is listed below.
+      
+      {\small \lstinputlisting[language=Python]{hw11_1a.py}}
+
+      \item We are integrating the function \begin{align*}
+          f(s) = \frac{1}{1+s^2}.
+      \end{align*} The function has derivatives \begin{align*}
+          f^{(2)}(s) &= \frac{8s^2}{\left(1+s^2\right)^3} - \frac{2}{\left(1+s^2\right)^2}, \\
+          f^{(4)}(s) &= \frac{-288s^2}{\left(s^2+1\right)^4} + \frac{24}{\left(s^2 + 1\right)^3} + \frac{384s^4}{\left(s^2+1\right)^5}.
+      \end{align*} Over \([-5, 5]\), these are bound by \(\left|f^{(2)}(s)\right| \leq 2\) and \(\left|f^{(2)}(s)\right| \leq 24\).
+      
+      The error estimate for composite Trapezoidal on \(f\) over the interval \([a, b]\) with spacing \(h\) is \begin{align*}
+          \left|E_T\left(f, a, b, h\right)\right| = \frac{f^{(2)}(\eta )h^2 (b-a)}{12},
+      \end{align*} for some \(\eta \in [a, b]\). We have the endpoints \(a=-5\), \(b=5\), and interval \(h = \frac{b-a}{N} = \frac{10}{N}\). We want \(\left|E\right| < 10^{-4}\), which implies \begin{align*}
+        10^{-4} > \frac{2h^2(10)}{12} = \frac{(2)(10^3)}{12N^2} \implies N > \sqrt{\frac{2(10^3)}{12(10^{-4})}} \approx 1290.
+      \end{align*}
+
+      The error estimate for composite Simpson on \(f\) over \([a, b]\) with spacing \(h\) is \begin{align*}
+        \left|E_S\left(f, a, b, h\right)\right| = \frac{f^{(4)}(\eta )h^4 (b-a)}{180},
+      \end{align*} where \(\eta \in [a, b]\). As before, we want \(\left|E_T\right| < 10^{-4}\), which implies \begin{align*}
+          10^{-4} > \frac{24(10^5)}{180N^4} \implies N > \left(\frac{24(10^5)}{180(10^{-4})}\right)^{\frac{1}{4}} \approx 108.
+      \end{align*}
+
+      \item The code used in this question is listed at the end of the question. Using scipy's \texttt{quad} gives an approximate answer \(I \approx 2.7468015\). Using the number of terms found in the previous question, we get absolute error \(1.5\times 10^{-7}\) and \(5.2\times 10^{-9}\) for our implementation of trapezoidal and Simpsons', respectively.
+
+      Scipy's quadrature requires 63 nodes to achieve a tolerance of \(10^{-4}\) and 147 nodes to achieve a tolerance of \(10^{-6}\).
+
+      {\small \lstinputlisting[language=Python]{hw11_1c.py}}
+      
+    \end{enumerate}
+
+    \newpage
+    \item The code used in this question is listed at end.
+    
+    We let \(t = x^{-1}\) and have \begin{align*}
+        I = \int_1^{\infty} \frac{\cos(x)}{x^3}\dif x = \int_1^0 -t^3 \cos \left( \frac{1}{t}\right) \frac{\dif t}{t^2} = \int_0^1 t \cos \left(\frac{1}{t}\right) \dif t.
+    \end{align*} We apply composite Simpson's method with 5 nodes and get \begin{align*}
+        I \approx 0.014685,
+    \end{align*} which is a relative error of 0.19.
+
+    {\small \lstinputlisting[language=Python]{hw11_2.py}}
+
+    \item We have the asymptotic formulas \begin{align*}
+        I-I_n &= \frac{C_1}{n\sqrt{n}} + \frac{C_2}{n^2} + \frac{C_3}{n^2\sqrt{n}} + \frac{C_4}{n^3} + \dots, \\
+        I-I_{\frac{n}{2}} &= 2\sqrt{2}\frac{C_1}{n\sqrt{n}} + 4 \frac{C_2}{n^2} + 4\sqrt{2}\frac{C_3}{n^2\sqrt{n}} + 8 \frac{C_4}{n^3} + \dots, \\
+        I-I_{\frac{n}{4}} &= 4\sqrt{4} \frac{C_1}{n\sqrt{n}} + 16 \frac{C_2}{n^2} + 16\sqrt{4} \frac{C_3}{n^2\sqrt{n}} + 64 \frac{C_4}{n^3} + \dots. 
+    \end{align*} We add the first two together to get a formula with error on order \(\frac{1}{n^2}\), \begin{align*}
+        I - I_n - \frac{1}{2\sqrt{2}}I + \frac{1}{2\sqrt{2}}I_{\frac{n}{2}} &= \left( 1 - \frac{4}{2\sqrt{2}} \right) \frac{C_2}{n^2} + \left( 1 - \frac{4\sqrt{2}}{2\sqrt{2}} \right) \frac{C_3}{n^2\sqrt{n}} + \left( 1 - \frac{8}{2\sqrt{2}} \right) \frac{C_4}{n^3} + \dots \\
+        &= \left( 1 - \sqrt{2} \right) \frac{C_2}{n^2} - \frac{C_3}{n^2\sqrt{n}} + \left( 1 - 2\sqrt{2} \right) \frac{C_4}{n^3} + \dots.
+    \end{align*}
+
+    Similarly, we add the second two expansions to have \begin{align*}
+        I - I_n - \frac{1}{4\sqrt{4}}I + \frac{1}{4\sqrt{4}}I_{\frac{n}{4}} &= \left( 1 - \frac{16}{4\sqrt{4}} \right) \frac{C_2}{n^2} + \left( 1 - \frac{16\sqrt{4}}{4\sqrt{4}} \right) \frac{C_3}{n^2\sqrt{n}} + \left( 1 - \frac{64}{4\sqrt{4}} \right) \frac{C_4}{n^3} + \dots \\
+        &= -\frac{C_2}{n^2} - 3 \frac{C_3}{n^2\sqrt{n}} - 7 \frac{C_4}{n^3} + \dots.
+    \end{align*}
+
+    Thus, we have an expansion in order \(\frac{1}{n^2\sqrt{n}}\), \begin{align*}
+      I -& I_n - \frac{1}{2\sqrt{2}}I + \frac{1}{2\sqrt{2}}I_{\frac{n}{2}} - \frac{1-\sqrt{2}}{1-\sqrt{4}}I + \frac{1-\sqrt{2}}{1-\sqrt{4}}I_n + \frac{1-\sqrt{2}}{1-\sqrt{4}}\frac{1}{4\sqrt{4}}I - \frac{1-\sqrt{2}}{1-\sqrt{4}}\frac{1}{4\sqrt{4}}I_{\frac{n}{4}} \\
+      &= \left(2-\frac{\sqrt{2}}{4} -\sqrt{2} - \frac{1-\sqrt{2}}{8}\right)I + \left(-1 - 1 + \sqrt{2}\right)I_n + \frac{\sqrt{2}}{4}I_{\frac{n}{2}} + \frac{1-\sqrt{2}}{8}I_{\frac{n}{4}} \\
+      &= \left(\frac{15}{8}-\frac{9}{8}\sqrt{2}\right)I + \left(-2 + \sqrt{2}\right)I_n + \frac{\sqrt{2}}{4}I_{\frac{n}{2}} + \frac{1-\sqrt{2}}{8}I_{\frac{n}{4}} \\
+      &= \left(3 \frac{1-\sqrt{2}}{1-\sqrt{4}}-1\right) \frac{C_3}{n^2\sqrt{n}} + \left( 1 - 2\sqrt{2} - \left(1-4\sqrt{4}\right) \frac{1-\sqrt{2}}{1-\sqrt{4}} \right) \frac{C_4}{n^3} + \dots. 
+    \end{align*}
+
+    Finally, this gives the extrapolation \begin{align*}
+        I - \frac{16+16\sqrt{2}}{15 - 9\sqrt{2}}I_n + \frac{2\sqrt{2}}{15 - 9\sqrt{2}}I_{\frac{n}{2}} + \frac{1-\sqrt{2}}{15 - 9 \sqrt{2}} I_{\frac{n}{4}} = O(\frac{1}{n^2\sqrt{n}}).
+    \end{align*}
 
 \end{enumerate}
 

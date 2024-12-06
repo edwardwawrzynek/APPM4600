@@ -1,0 +1,73 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[includehead, headheight=10mm, margin=15mm ]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\title{APPM 4600 Lab 14}
+\author{Edward Wawrzynek}
+\date{5 December 2024}
+
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    {\normalfont \@date}
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+
+\begin{document}
+
+\pagestyle{fancy}
+    \fancyhf{} % clear all header and footer fields
+    \fancyhead[L]{\thetitle}
+    \fancyhead[R]{\theauthor}
+
+\makeatletter
+\begin{center}
+    {\Large \@title}
+    \vskip 1mm
+    {\normalfont \@date}
+    \vskip 1em
+\end{center}
+\makeatother
+
+The code for this lab can be seen at the end of this document, or on github \href{https://github.com/edwardwawrzynek/APPM4600/blob/master/Labs/Lab\%2014}{here}.
+
+\section{Solving Square Systems}
+The time taken for the two solution techniques with different size matrices is given in the table below.
+
+\begin{center}
+  \begin{tabular}{c|c | c| c}
+   \(N\) & \texttt{scipy.linalg.solve} [ms] & LU factorization [ms] & LU Solve [ms] \\
+   \hline 
+   100 & 2.557516098022461 & 0.1647472381591797 & 0.03886222839355469 \\
+   500 & 13.90385627746582 & 2.142190933227539 & 0.10395050048828125 \\
+   1000 & 19.914865493774414 & 10.042428970336914 & 0.3666877746582031 \\
+   2000 & 80.60383796691895 & 43.37739944458008 & 2.206087112426758 \\
+   4000 & 489.3050193786621 & 353.6355495452881 & 6.650209426879883 \\
+   5000 & 789.3681526184082 & 638.4170055389404 & 9.52768325805664 \\
+  \end{tabular}
+  \end{center}
+
+We find that LU factorization and solving is always faster than using the built in solve function, which is unexpected. This may be an artifact from how timing was measured.
+
+{\small \lstinputlisting[language=Python]{lab13_code.py}}
+
+\end{document}
