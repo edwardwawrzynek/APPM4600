@@ -41,7 +41,7 @@ def question3_2_3(N):
      print(str(N) + " & ", end="")
 
      t = time.time()
-     for i in range(100):
+     for i in range(50):
           b = np.random.rand(N, 1)
           x1 = scila.solve(A, b)
      e = time.time()
@@ -49,7 +49,7 @@ def question3_2_3(N):
 
      t = time.time()
      lu, piv = scila.lu_factor(A)
-     for i in range(100):
+     for i in range(50):
           b = np.random.rand(N, 1)
           x2 = scila.lu_solve((lu, piv), b)
      e = time.time()
@@ -62,11 +62,24 @@ def question3_4_1():
      A = create_rect(N,M)     
      b = np.random.rand(N,1)
 
+     # solve via normal equation
+     x1 = la.solve(np.matmul(A.T, A), np.dot(A.T, b))
+     # solve via QR
+     Q, R = la.qr(A)
+     x2 = la.solve(R, np.dot(Q.T, b))
+
+     # compute L2 norm of solutions
+     err1 = la.norm(np.matmul(A, x1) - b)
+     err2 = la.norm(np.matmul(A, x2) - b)
+
+     print(err1)
+     print(err2)
+
 
      
 def create_rect(N,M):
      ''' this subroutine creates an ill-conditioned rectangular matrix'''
-     a = np.linspace(1,10,M)
+     a = np.linspace(1,15,M)
      d = 10**(-a)
      
      D2 = np.zeros((N,M))
@@ -87,6 +100,8 @@ def create_rect(N,M):
           
   
 if __name__ == '__main__':
-      # run the drivers only if this is called from the command line
-     for N in [100, 500, 1000, 2000, 4000, 5000]:
-          question3_2_3(N)       
+     # run the drivers only if this is called from the command line
+     question3_4_1()
+     #for N in [100, 500, 1000, 2000, 4000, 5000]:
+     #     question3_2_2(N)
+     #     question3_2_3(N)       
