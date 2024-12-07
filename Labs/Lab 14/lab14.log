@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.31)  5 DEC 2024 22:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.12.31)  6 DEC 2024 12:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -409,7 +409,7 @@ Package pdftex.def Info: time.png  used on input line 90.
  <./time.png>] (/usr/local/texlive/2022/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2020/03/24 1.8d listings language file
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 109.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 108.
  (./lab13_code.py
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 35.
  (/usr/local/texlive/2022/texmf-dist/tex/latex/base/omscmr.fd

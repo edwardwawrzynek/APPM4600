@@ -1,0 +1,196 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[includehead, headheight=10mm, margin=15mm ]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{fancyhdr}
+\usepackage{listings}
+
+\title{APPM 4600 Homework 12}
+\author{Edward Wawrzynek}
+\date{5 December 2024}
+
+\newcommand*{\dif}{\mathop{}\!\mathrm{d}}
+\renewcommand{\vec}{\mathbf}
+
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \null
+  \vskip 1em%
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1em%
+    {\normalfont \@date}
+  \end{center}%
+  \par
+  \vskip 1em}
+\makeatother
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\begin{document}
+
+\pagestyle{fancy}
+    \fancyhf{} % clear all header and footer fields
+    \fancyhead[L]{\thetitle}
+    \fancyhead[R]{\theauthor}
+
+\makeatletter
+\begin{center}
+    {\Large \@title}
+    \vskip 1mm
+    {\normalfont \@date}
+    \vskip 1em
+\end{center}
+\makeatother
+
+\begin{enumerate}
+    \item \begin{enumerate}
+        \item We have the system \begin{align*}
+            \begin{bmatrix}
+                6 & 2 & 2 \\
+                2 & \frac{2}{3} & \frac{1}{3} \\
+                1 & 2 & -1 \\
+            \end{bmatrix} \begin{bmatrix}
+                x \\ y \\ z
+            \end{bmatrix} = \begin{bmatrix}
+                -2 \\ 1 \\ 0
+            \end{bmatrix}.
+        \end{align*}
+
+        Observe that the system is solved by \begin{align*}
+            \begin{bmatrix}
+                6 & 2 & 2 \\
+                2 & \frac{2}{3} & \frac{1}{3} \\
+                1 & 2 & -1 \\
+            \end{bmatrix} \begin{bmatrix}
+                2.6 \\ -.38 \\ -5
+            \end{bmatrix} = \begin{bmatrix}
+                -2 \\ 1 \\ 0
+            \end{bmatrix} \implies \begin{bmatrix}
+                x \\ y \\ z
+            \end{bmatrix} = \begin{bmatrix}
+                2.6 \\ -3.8 \\ -5
+            \end{bmatrix}.
+        \end{align*}
+
+        \item We reduce the system without pivoting in 4 digit arithmetic, \begin{align*}
+            \begin{bmatrix}[ccc|c]
+                6 & 2 & 2 & -2 \\
+                2 & \frac{2}{3} & \frac{1}{3} & 1 \\
+                1 & 2 & -1 & 0 \\
+            \end{bmatrix} &= 
+            \begin{bmatrix}[ccc|c]
+                6.000 & 2.000 & 2.000 & -2.000 \\
+                2.000 & 0.6667 & 0.3333 & 1.000 \\
+                1.000 & 2.000 & -1.000 & 0.000 \\
+            \end{bmatrix} \implies
+            \begin{bmatrix}[ccc|c]
+                6.000 & 2.000 & 2.000 & -2.000 \\
+                0.000 & 0.000 & -0.3334 & 1.667 \\
+                0.000 & 1.667 & -1.333 & 0.3333 \\
+            \end{bmatrix}.
+        \end{align*} Reducing this system further without pivoting will result in overflows (we need to divide by the 0 in the \(y\) position of the second equation).
+
+        \item If we solve the same system with pivoting, we get \begin{align*}
+            \begin{bmatrix}[ccc|c]
+            6 & 2 & 2 & -2 \\
+            2 & \frac{2}{3} & \frac{1}{3} & 1 \\
+            1 & 2 & -1 & 0 \\
+        \end{bmatrix} &= 
+        \begin{bmatrix}[ccc|c]
+            6.000 & 2.000 & 2.000 & -2.000 \\
+            2.000 & 0.6667 & 0.3333 & 1.000 \\
+            1.000 & 2.000 & -1.000 & 0.000 \\
+        \end{bmatrix} \implies
+        \begin{bmatrix}[ccc|c]
+            6.000 & 2.000 & 2.000 & -2.000 \\
+            0.000 & 0.000 & -0.3334 & 1.667 \\
+            0.000 & 1.667 & -1.333 & 0.3333 \\
+        \end{bmatrix} \\ &\implies
+        \begin{bmatrix}[ccc|c]
+            6.000 & 2.000 & 2.000 & -2.000 \\
+            0.000 & 0.000 & -0.3334 & 1.667 \\
+            0.000 & 1.667 & 0.000 & -6.332 \\
+        \end{bmatrix} \implies \begin{bmatrix}[ccc|c]
+            6.000 & 0.000 & 0.000 & 15.60 \\
+            0.000 & 0.000 & -0.3334 & 1.667 \\
+            0.000 & 1.667 & 0.000 & -6.332 \\
+        \end{bmatrix} \\ &\implies
+        \begin{bmatrix}[ccc|c]
+            1.000 & 0.000 & 0.000 & 2.600 \\
+            0.000 & 0.000 & 1 & -5.000 \\
+            0.000 & 1.000 & 0.000 & -3.798 \\
+        \end{bmatrix},
+    \end{align*} which is the solution \(x=2.6, y=-3.798, z=-5\).
+
+    \item Pivoting is much more stable.
+    \end{enumerate}
+
+    \item We have the matrix \begin{align*}
+        A = \begin{bmatrix}12 & 10 & 4 \\ 10 & 8 & -5 \\4 & -5 & 3\end{bmatrix}.
+    \end{align*} We compute \begin{align*}
+        \alpha = \sqrt{10^2+4^2} = \sqrt{116}
+    \end{align*} and \begin{align*}
+        r = \sqrt{\frac{1}{2}(\alpha ^2 - 10\alpha )} = \sqrt{58 - 5\sqrt{116}}.
+    \end{align*}
+    
+    We want to zero the last entry of the first column, so we pick \begin{align*}
+        \vec{u_1} = \begin{bmatrix}0 \\ \frac{10-\sqrt{116}}{2r} \\ \frac{4}{2r}\end{bmatrix}
+    \end{align*} and form the Householder matrix \begin{align*}
+        P_1 = I - 2\vec{u_1}\vec{u_1}^T \approx \begin{bmatrix}1 & 0 & 0 \\ 0 & 0.9285 & 0.3714 \\ 0 0.3714 & -0.9285\end{bmatrix}.
+    \end{align*} Notice that \(P_1\) is symmetric and orthogonal, so \(P_1^{-1} = P_1^T = P_1\). Thus, we can form the similarity transform \begin{align*}
+        A_2 &= P_1^{-1}AP_1 \\ &=P_1AP_1 \approx \begin{bmatrix}12 & 10.7703 & 0 \\ 10.7703 & 3.8621 & 5.3448 \\ 0 & 5.3448 & 7.1379\end{bmatrix},
+    \end{align*} which is tridiagonal.
+
+    \item \begin{enumerate}
+        \item The power method was implemented in code shown at the end of this question. The table below gives the number of iterations required to calculate the dominant eigenvalue to \(10^{-10}\) relative accuracy.
+        
+        \begin{center}
+            \begin{tabular}{c | c | c}
+                \(n\) & \(\lambda_1\) & number of iterations \\
+                \hline
+                4 & 1.5002142800557454 & 5 \\
+                8 & 1.695938996910598 & 7 \\
+                12 & 1.7953720595371143 & 8 \\
+                16 & 1.860036442716032 & 8 \\
+                20 & 1.9071347202891533 & 8 \\
+            \end{tabular}
+        \end{center}
+
+        In general, the algorithm converges quickly, likely because the dominant eigenvalue is well separated from the rest.
+
+        \item We perform the inverse power method on \(n=16\) and get \begin{align*}
+            \lambda_{16} \approx -6.103265343573278 \times 10^{-19}.
+        \end{align*}
+
+        \item The hilbert matrix \(A\) is symmetric, so it has orthogonal diagonalization \begin{align*}
+            A = P^{-1}AP = P^TAP.
+        \end{align*} Thus, the Bauer-Fike theorem reduces to \begin{align*}
+            \min_{\lambda \in \sigma(A)}|\lambda -\mu | \leq ||P^{-1}||||P||||E|| \leq ||E||.
+        \end{align*} If we take \(E\) to be the error introduced by machine epsilon, \(||E|| \approx 10^{-16}\), then we expect the error in our eigenvalue to be bounded by \(||E||\).
+
+        \item The power method assumes that the matrix being considered is diagonalizable. Consider the matrix \begin{align*}
+            A = \begin{bmatrix}2 & 1 \\ 0 & 2\end{bmatrix},
+        \end{align*} which has eigenvalue \(\lambda = 2\) with algebraic multiplicity 2.
+
+        When we apply our power method to \(A\), it fails to converge to the eigenvalue. This is expected: the power method relies on some spectral gap between the eigenvalues, which doesn't exist for this example.
+
+    \end{enumerate}
+
+    {\small \lstinputlisting[language=Python]{hw12.py}}
+\end{enumerate}
+
+
+\end{document}
